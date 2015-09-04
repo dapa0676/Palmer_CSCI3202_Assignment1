@@ -1,5 +1,6 @@
 #Daniel Palmer 
 import Queue
+from collections import defaultdict
 
 #part one, QUEUE
 q = Queue.Queue()
@@ -20,16 +21,16 @@ class Stack():
 		print len(self.container)
 
 
-class Node:
+class Node():
 	def __init__(self,value,parent):
 		self.leftChild = None
 		self.rightChild = None
 		self.value = value
 		self.parent = parent
 		
-class binaryTree:
+class binaryTree():
 
-	def __init__(self,):
+	def __init__(self):
 		self.root = None
 	
 	def createRoot(self, value):
@@ -111,25 +112,37 @@ class binaryTree:
 			current = nodeQueue.get()
 		
 			
-class graph:
-	def addVertex(value):
-		#TODO
-		pass
+class graph():
+	def __init__(self, dictionary ={}):
+		self.dictionary = dictionary
+
+	def addVertex(self, value):
+		if value in self.dictionary:
+			print "vertex already exists in graph"
+		else:
+			self.dictionary[value] = []
+	def addEdge(self,first,second):
+		if first not in self.dictionary or second not in self.dictionary:
+			print "error! vertices not found"
+		else:
+			self.dictionary[first].append(second)
+			self.dictionary[second].append(first)
+	def findVertex(self,value):
+		if value in self.dictionary:
+			print value, ":", self.dictionary[value]
+		else:
+			print "vertex not found!"
 
 
-	def addEdge(value1, value2):
-		#TODO
-		pass
-	def findVertex(value):
-		#TODO
-		pass
-	
 def test():
 	print "#########  TESTING QUEUE  ########"
 	for i in range (0,10):
 		q.put(i)
 	for i in range (0,10):
 		print q.get()
+	
+	print
+	print
 
 	print "#########  TESTING STACK  ########"
 	testStack = Stack()
@@ -137,6 +150,9 @@ def test():
 		testStack.push(i)
 	for i in range (0,10):
 		print testStack.pop()
+
+	print
+	print
 
 	print "########  TESTING TREE  ##########"
 	testTree = binaryTree()
@@ -157,6 +173,51 @@ def test():
 	testTree.delete(9)
 	testTree.delete(10)
 	testTree.printTree()
+	
+	print
+	print
 
+	print "########  TESTING GRAPH"
+	
+	testGraph = graph()
+	
+	testGraph.addVertex(1)
+	testGraph.addVertex(2)
+	testGraph.addVertex(3)
+	testGraph.addVertex(4)
+	testGraph.addVertex(5)
+	testGraph.addVertex(6)
+	testGraph.addVertex(7)
+	testGraph.addVertex(8)
+	testGraph.addVertex(9)
+	testGraph.addVertex(10)
+	
+	testGraph.addEdge(1,2)
+	testGraph.addEdge(2,3)
+	testGraph.addEdge(3,4)
+	testGraph.addEdge(4,5)
+	testGraph.addEdge(5,6)
+	testGraph.addEdge(6,7)
+	testGraph.addEdge(7,8)
+	testGraph.addEdge(8,9)
+	testGraph.addEdge(9,10)
+	testGraph.addEdge(1,3)
+	testGraph.addEdge(2,4)
+	testGraph.addEdge(3,5)
+	testGraph.addEdge(4,6)
+	testGraph.addEdge(5,7)
+	testGraph.addEdge(6,8)
+	testGraph.addEdge(7,9)
+	testGraph.addEdge(8,10)
+	testGraph.addEdge(10,2)
+	testGraph.addEdge(2,6)
+	testGraph.addEdge(5,8)
+	
+	print "search for vertices 5,6,7,8,9"
+	testGraph.findVertex(5)
+	testGraph.findVertex(6)
+	testGraph.findVertex(7)
+	testGraph.findVertex(8)
+	testGraph.findVertex(9)
 
 test()
